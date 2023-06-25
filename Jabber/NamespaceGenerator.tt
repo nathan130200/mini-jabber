@@ -1,0 +1,39 @@
+<#@output extension=".g.cs"#>
+<#@import namespace="System.Collections.Generic"#>
+<#
+	var namespaces = new Dictionary<string, string>()
+	{
+		["Stream"] = "http://etherx.jabber.org/streams",
+		["CryOnline"] = "urn:cryonline:k01",
+		["Client"] = "jabber:client",
+		["Tls"] = "urn:ietf:params:xml:ns:xmpp-tls",
+		["Bind"] = "urn:ietf:params:xml:ns:xmpp-bind",
+		["Session"] = "urn:ietf:params:xml:ns:xmpp-session",
+		["Sasl"] = "urn:ietf:params:xml:ns:xmpp-sasl",
+		["Stanzas"] = "urn:ietf:params:xml:ns:xmpp-stanzas",
+		["Streams"] = "urn:ietf:params:xml:ns:xmpp-streams"
+	};
+
+	var date = DateTime.Now.ToString("dd-MM-yyyy'T'hh:mm:ss.fff-zzz");
+#>
+using System.Xml.Linq;
+
+/// <summary>
+/// Generated: <#= date #>
+/// </summary>
+public static class NS
+{
+<# foreach(var entry in namespaces) {#>
+	public const string <#= entry.Key #> = "<#= entry.Value #>";
+<# }#>
+}
+
+/// <summary>
+/// Generated: <#= date #>
+/// </summary>
+public static class xNS
+{
+<# foreach(var entry in namespaces) {#>
+	public static XNamespace <#= entry.Key #> { get; } = "<#= entry.Value #>";
+<# }#>
+}
